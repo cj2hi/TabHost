@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 底部切换菜单 -->
+    <color name="txt666">#666666</color>
+    <color name="txt009eb8">#009eb8</color>
+    <color name="list_viewColor">#efefef</color>
+    <color name="list_viewColor2">#ffffff</color>
+    <color name="list_viewColor3">#00000000</color>
+    <color name="orange">#FFA500</color>
+    <color name="red">#db2725</color>
+</resources>
