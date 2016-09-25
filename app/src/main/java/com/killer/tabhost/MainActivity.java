@@ -32,9 +32,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //下面是获取写SD卡权限和测试程序运行速度代码
+//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                != PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+//        }
+//        Debug.startMethodTracing("tabhost");
         //初始化控件
         initView();
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        Debug.stopMethodTracing();
+//        super.onDestroy();
+//    }
 
     private void initView() {
         //实例化控件
