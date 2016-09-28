@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.text3 = (TextView) findViewById(R.id.text3);
         this.text4 = (TextView) findViewById(R.id.text4);
 
-        //实例化 FragmentTabHost (注：id 的获取必须为固定) 与 FrameLayout 布局
+        //实例化 FragmentTabHost (注：id 的获取必须为固定tabhost) 与 FrameLayout 布局
         mTabHost = (FragmentTabHost) this.findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
         mTabHost.getTabWidget().setVisibility(View.GONE);//隐藏顶部切换菜单
