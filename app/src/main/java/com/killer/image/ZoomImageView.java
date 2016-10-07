@@ -158,17 +158,18 @@ public class ZoomImageView extends View {
             width = getWidth();  
             height = getHeight();  
         }  
-    }  
-  
-    @Override  
+    }
+
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getActionMasked()) {  
         case MotionEvent.ACTION_POINTER_DOWN:  
             if (event.getPointerCount() == 2) {  
                 // 当有两个手指按在屏幕上时，计算两指之间的距离  
                 lastFingerDis = distanceBetweenFingers(event);  
-            }  
-            break;  
+            }
+            break;
         case MotionEvent.ACTION_MOVE:  
             if (event.getPointerCount() == 1) {  
                 // 只有单指按在屏幕上移动时，为拖动状态  
@@ -236,7 +237,7 @@ public class ZoomImageView extends View {
         default:  
             break;  
         }  
-        return true;  
+        return super.onTouchEvent(event);
     }  
   
     /** 
@@ -369,7 +370,7 @@ public class ZoomImageView extends View {
                 currentBitmapWidth = bitmapWidth;  
                 currentBitmapHeight = bitmapHeight;  
             }  
-            canvas.drawBitmap(sourceBitmap, matrix, null);  
+            canvas.drawBitmap(sourceBitmap, matrix, null);
         }  
     }  
   

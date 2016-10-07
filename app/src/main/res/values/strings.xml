@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TabHost</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="actionbar_text">选择标题栏颜色:</string>
+    <string name="fragment4_create_message">根据输入内容生成二维码</string>
+    <string name="scan_text">正在扫描中</string>
 </resources>

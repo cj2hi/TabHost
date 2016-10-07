@@ -1,8 +1,16 @@
 package com.killer.tabhost;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,10 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout button0, button2, rlNum1; //显示数字标签布局
     private int lastSelectButton; // 存储最后点击的布局按钮位置数
 
+    private ActionBar mActionBar; //标题栏
+    private BgChangeReceiver mBgChangeReceiver; //标题栏背景色更改监听广播
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //下面是获取写SD卡权限和测试程序运行速度代码
 //        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -48,6 +60,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        Debug.stopMethodTracing();
 //        super.onDestroy();
 //    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //返回最后的选择
+//        setLayoutButton(lastSelectButton);
+    }
+
 
     private void initView() {
         //实例化控件
@@ -91,8 +112,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //设置默认选中标签
         mTabHost.setCurrentTabByTag(tabs[0]);
         lastSelectButton = 1;
+
+        mActionBar = getSupportActionBar();
+
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // 启动广播监听
+        mBgChangeReceiver = new BgChangeReceiver();
+        IntentFilter intentFilter = new IntentFilter("com.killer.tabhost.fragment4");
+        LocalBroadcastManager.getInstance(this).registerReceiver(mBgChangeReceiver,intentFilter);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // 停止广播监听
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mBgChangeReceiver);
+    }
 
     // 切换页面按钮点击事件
     @Override
@@ -166,5 +207,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 将最后选择保存
         lastSelectButton = selectButton;
 
+    }
+
+    private class BgChangeReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                // 从广播中得到更改的颜色代码
+                int bg_num = intent.getIntExtra("actionbar_bg_num", 0);
+
+//                Log.i("cc:", String.valueOf(bg_num));
+                switch (bg_num) {
+                    case 0:
+                        mActionBar.setBackgroundDrawable(ContextCompat.getDrawable(context,R.color.colorPrimary));
+                        break;
+                    case 1:
+                        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+                        break;
+                    case 2:
+                        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.RED));
+                        break;
+
+                }
+            }
+        }
     }
 }

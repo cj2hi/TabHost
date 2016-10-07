@@ -1,13 +1,54 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:orientation="vertical"
              tools:context="com.killer.tabhost.Fragment1">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="fragment4"/>
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:text="@string/actionbar_text"/>
 
-</FrameLayout>
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment4_spinner"
+        android:spinnerMode="dialog"/>
+
+    <EditText
+        android:id="@+id/fragment4_editurl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/fragment4_button_create"
+        android:text="@string/fragment4_create_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/fragment4_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/fragment4_button_bitmap_decode"
+        android:text="从图片解析二维码"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/fragment4_button_capture_decode"
+        android:text="扫描二维码"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+</LinearLayout>

@@ -11,4 +11,5 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.killer.tabhost.ImageDetailsActivity">
 
+
 </com.killer.image.ZoomImageView>
