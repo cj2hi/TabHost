@@ -1,6 +1,7 @@
 package com.killer.tabhost;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -39,6 +40,7 @@ public class Fragment1 extends Fragment {
     private TextView mTextView;
     private PullToRefreshLayout mPullToRefreshLayout;
     private View mView; //用于保存VIEW不重建
+    private onMessageListener mCallBack;
 
     public Fragment1() {
         // Required empty public constructor
@@ -69,8 +71,7 @@ public class Fragment1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
-            // 使用第三方库得到下拉刷新效果
+        // 使用第三方库得到下拉刷新效果
             mPullToRefreshLayout = (PullToRefreshLayout) view.findViewById(R.id.my_layout);
 
             // 设置 PullToRefreshLayout
@@ -144,9 +145,22 @@ public class Fragment1 extends Fragment {
             // 更新UI内容并设置刷新结束语句
             mTextView.append("\n" + result[0]);
 
+            mCallBack.setMessageNumber(1);// 调用Activity的接口方法传值更新UI
+
             mPullToRefreshLayout.setRefreshComplete();
             super.onPostExecute(result);
         }
     }
 
+    // 定义接口给MainActivity使用，便于更新消息UI
+    public interface onMessageListener {
+        public void setMessageNumber(int number);
+    }
+
+    // 得到Activity本身实例，不确定时加Try
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallBack = (onMessageListener) context;
+    }
 }

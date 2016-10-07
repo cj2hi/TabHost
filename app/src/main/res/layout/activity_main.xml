@@ -96,11 +96,11 @@
                             android:background="@android:color/holo_red_light">
 
                             <TextView
-                                android:id="@+id/tvcartNum"
+                                android:id="@+id/tvMsgNum"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="1"
+                                android:text="0"
                                 android:textColor="#ffffff"
                                 android:textSize="12sp"/>
                         </RelativeLayout>

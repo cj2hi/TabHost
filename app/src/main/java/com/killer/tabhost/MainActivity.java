@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener , Fragment1.onMessageListener{
 
     private FragmentTabHost mTabHost;
     private LinearLayout button1, button3; //此处按钮是用布局文件ID
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Fragment4.class};
 
     private ImageView image1, image2, image3, image4; // 下方按钮需要用的图片
-    private TextView text1, text2, text3, text4, tvcartNum; // 下方按钮需要用的文字和新消息数字
+    private TextView text1, text2, text3, text4, tvMsgNum; // 下方按钮需要用的文字和新消息数字
     private RelativeLayout button0, button2, rlNum1; //显示数字标签布局
     private int lastSelectButton; // 存储最后点击的布局按钮位置数
 
@@ -105,9 +105,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //这里是实例化显示的提示标签数字
         rlNum1 = (RelativeLayout) findViewById(R.id.rlNum1);
-        tvcartNum = (TextView) findViewById(R.id.tvcartNum);
+        tvMsgNum = (TextView) findViewById(R.id.tvMsgNum);
 
-//        tvcartNum.setText("2"); // 可以设置提醒图片的数字
+        rlNum1.setVisibility(View.GONE); // 设置不可见
+//        tvMsgNum.setText("2"); // 可以设置提醒图片的数字
 
         //设置默认选中标签
         mTabHost.setCurrentTabByTag(tabs[0]);
@@ -209,6 +210,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    // 用于接收fragment1的新消息信息更改UI
+    @Override
+    public void setMessageNumber(int number) {
+        int messageNumber = Integer.parseInt(tvMsgNum.getText().toString());
+        tvMsgNum.setText(String.valueOf(messageNumber + number));
+        rlNum1.setVisibility(View.VISIBLE);
+    }
+
     private class BgChangeReceiver extends BroadcastReceiver {
 
         @Override
@@ -233,4 +242,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+
 }
