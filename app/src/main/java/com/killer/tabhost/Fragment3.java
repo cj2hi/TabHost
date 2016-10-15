@@ -32,7 +32,8 @@ public class Fragment3 extends Fragment implements BannerClickListener {
     private BannerFlipper mBannerFlipper; //自定义广告条
     private TextView tv_flipper;
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerView; // 原生效果控件
+//    private ScrollRecyclerView mRecyclerView; // 此为自定义可和其他控件一起滚动作用
     private SimpleRecyclerCardAdapter mSimpleRecyclerAdapter;
 
     private ImageLoader mImageLoader = ImageLoader.getInstance();

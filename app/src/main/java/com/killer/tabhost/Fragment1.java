@@ -13,7 +13,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.BackgroundColorSpan;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
@@ -97,6 +99,8 @@ public class Fragment1 extends Fragment {
             mTextView = (TextView) view.findViewById(R.id.fragment1_textview);
             SpannableString spannableString = getSpannableString();
             mTextView.setText(spannableString);
+            // 如果使用了点击事件就必须加上下面这行设置
+            mTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
     }
 
@@ -117,6 +121,14 @@ public class Fragment1 extends Fragment {
         d.setBounds(0, 0, d.getIntrinsicWidth() /10, d.getIntrinsicHeight() /10);
         ImageSpan imageSpan = new ImageSpan(d,ImageSpan.ALIGN_BASELINE);
         spannableString.setSpan(imageSpan,14,15,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        // 设置图片点击事件
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                mCallBack.setMessageNumber(0);
+            }
+        };
+        spannableString.setSpan(clickableSpan,14,15,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         //改变后面字的大小，字颜色，下划线
         spannableString.setSpan(new RelativeSizeSpan(1.2f), 15, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -19,8 +19,8 @@ public class ImageLoader {
     private ImageLoader() {  
         // 获取应用程序最大可用内存  
         int maxMemory = (int) Runtime.getRuntime().maxMemory();  
-        int cacheSize = maxMemory / 8;  
-        // 设置图片缓存大小为程序最大可用内存的1/8  
+        int cacheSize = maxMemory / 6;
+        // 设置图片缓存大小为程序最大可用内存的1/6
         mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {  
             @Override  
             protected int sizeOf(String key, Bitmap bitmap) {  

@@ -93,7 +93,7 @@
                             android:layout_height="17dp"
                             android:layout_marginLeft="50dp"
                             android:layout_marginTop="5dp"
-                            android:background="@android:color/holo_red_light">
+                            android:background="@drawable/circle_background">
 
                             <TextView
                                 android:id="@+id/tvMsgNum"

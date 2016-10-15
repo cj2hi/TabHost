@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ActionBar mActionBar; //标题栏
     private BgChangeReceiver mBgChangeReceiver; //标题栏背景色更改监听广播
+//    private ViewPager mViewPager; // 用于左右滑动用，和翻页动画冲突故弃用
+//    private List<Fragment> fragmentList = new ArrayList<>(4);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //实例化 FragmentTabHost (注：id 的获取必须为固定tabhost) 与 FrameLayout 布局
         mTabHost = (FragmentTabHost) this.findViewById(android.R.id.tabhost);
+//        mTabHost.setup(this, getSupportFragmentManager(), R.id.view_pager);
         mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);
         mTabHost.getTabWidget().setVisibility(View.GONE);//隐藏顶部切换菜单
         for (int i = 0; i < tabs.length; i++) {
@@ -115,6 +118,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lastSelectButton = 1;
 
         mActionBar = getSupportActionBar();
+
+        // 下方为翻页动画操作
+//        fragmentList.add(new Fragment1());
+//        fragmentList.add(new Fragment2());
+//        fragmentList.add(new Fragment3());
+//        fragmentList.add(new Fragment4());
+//
+//        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+//        //设置适配器
+//        mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager(),fragmentList));
+//        //设置界面滑动监听事件
+//        mViewPager.addOnPageChangeListener(new MyPageChangeListener(mTabHost));
 
 
     }
@@ -213,9 +228,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 用于接收fragment1的新消息信息更改UI
     @Override
     public void setMessageNumber(int number) {
-        int messageNumber = Integer.parseInt(tvMsgNum.getText().toString());
-        tvMsgNum.setText(String.valueOf(messageNumber + number));
-        rlNum1.setVisibility(View.VISIBLE);
+        if(number != 0) {
+            int messageNumber = Integer.parseInt(tvMsgNum.getText().toString());
+            tvMsgNum.setText(String.valueOf(messageNumber + number));
+            rlNum1.setVisibility(View.VISIBLE);
+        }else{ // 为0即清空消息提示数
+            tvMsgNum.setText(String.valueOf(0));
+            rlNum1.setVisibility(View.GONE);
+        }
     }
 
     private class BgChangeReceiver extends BroadcastReceiver {

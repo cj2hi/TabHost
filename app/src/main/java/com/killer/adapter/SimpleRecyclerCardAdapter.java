@@ -112,7 +112,7 @@ public class SimpleRecyclerCardAdapter  extends RecyclerView.Adapter<SimpleCardV
 		DownLoadTask task = getDownLoadTask(imageView);
 		if (task != null) {
 			String url = task.url;
-			if (url == null || !url .equals(imageUrl)){
+			if (url == null || !url.equals(imageUrl)){
 				task.cancel(true);
 			}else{
 				return false;
