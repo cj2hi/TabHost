@@ -6,7 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +43,7 @@ public class SimpleRecyclerCardAdapter  extends RecyclerView.Adapter<SimpleCardV
 		mInflater = LayoutInflater.from(mCtx);
 		this.mImageDatas = imagedatas;
 		imageLoader = ImageLoader.getInstance();
-		bitmap = BitmapFactory.decodeResource(mCtx.getResources(),R.mipmap.ic_launcher);
+		bitmap = BitmapFactory.decodeResource(mCtx.getResources(),R.drawable.loading);
 	}
 	@Override
 	public int getItemCount() {
@@ -56,11 +59,17 @@ public class SimpleRecyclerCardAdapter  extends RecyclerView.Adapter<SimpleCardV
 		if (mBitmap != null){
 			viewHolder.itemIv.setImageBitmap(mBitmap);
 		}else if (cancelPotentialTask(imageUrl,viewHolder.itemIv)){
-			//执行下载操作
-			DownLoadTask task = new DownLoadTask(viewHolder.itemIv);
-			AsyncDrawable asyncDrawable = new AsyncDrawable(mCtx.getResources(),bitmap,task);
-			viewHolder.itemIv.setImageDrawable(asyncDrawable);
-			task.execute(imageUrl);
+			//执行下载操作,如果有网络的情况下
+			if (hasConnect()) {
+
+				DownLoadTask task = new DownLoadTask(viewHolder.itemIv);
+				AsyncDrawable asyncDrawable = new AsyncDrawable(mCtx.getResources(),bitmap,task);
+				viewHolder.itemIv.setImageDrawable(asyncDrawable);
+				task.execute(imageUrl);
+			}else {
+				viewHolder.itemIv.setImageBitmap(bitmap);
+				Snackbar.make(viewHolder.itemIv.getRootView(),"无网络连接，请检查网络情况",Snackbar.LENGTH_LONG).show();
+			}
 		}
 
 		if(mOnItemActionListener!=null)
@@ -81,6 +90,23 @@ public class SimpleRecyclerCardAdapter  extends RecyclerView.Adapter<SimpleCardV
 				}
 			});
 		}
+	}
+
+	/**
+	 * 判断网络连接状态
+	 * @return
+     */
+	private boolean hasConnect() {
+		ConnectivityManager cm = (ConnectivityManager) mCtx.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+		if (networkInfo == null || networkInfo.getState() != NetworkInfo.State.CONNECTED) {
+
+			return false;
+		}
+		return true;
+
+
 	}
 
 	@Override

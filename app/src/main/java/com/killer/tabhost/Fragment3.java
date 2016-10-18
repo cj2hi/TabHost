@@ -1,16 +1,21 @@
 package com.killer.tabhost;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.killer.adapter.SimpleRecyclerCardAdapter;
@@ -39,6 +44,9 @@ public class Fragment3 extends Fragment implements BannerClickListener {
     private ImageLoader mImageLoader = ImageLoader.getInstance();
 
 
+    private ImageView mIVConnectError; //网络错误提示图片
+
+
     public Fragment3() {
         // Required empty public constructor
     }
@@ -57,9 +65,31 @@ public class Fragment3 extends Fragment implements BannerClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mIVConnectError = (ImageView) view.findViewById(R.id.fragment3_error_iv);
         initBannerFlipper(view); // 初始化广告条内容
 
-        initDataAndView(view);// 初始化瀑布墙
+        if (hasConnect()) {
+            mIVConnectError.setVisibility(View.GONE);
+
+            initDataAndView(view);// 初始化瀑布墙
+        }else {
+            if (mRecyclerView == null) { //无连接未初始化才显示
+                mIVConnectError.setVisibility(View.VISIBLE);
+
+            }
+            Snackbar.make(view,"无网络连接，请检查网络情况再刷新本页面",Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean hasConnect() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo == null || networkInfo.getState() != NetworkInfo.State.CONNECTED) {
+
+            return false;
+        }
+        return true;
     }
 
     @Override

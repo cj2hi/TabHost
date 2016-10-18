@@ -1,10 +1,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             tools:context="com.killer.tabhost.Fragment1"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.killer.tabhost.Fragment1">
     <!--
     <ScrollView
         android:layout_width="match_parent"
@@ -18,30 +18,33 @@
         android:orientation="vertical">
 
 
+        <com.killer.tabhost.BannerFlipper
+            android:id="@+id/banner_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <TextView
+            android:id="@+id/tv_flipper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="5dp"
+            android:text="显示点击第几个图片"
+            android:textColor="#000000"
+            android:textSize="10sp"/>
 
+        <!--下面这个是显示网络连接错误的图片，正常时不可见-->
+        <ImageView
+            android:id="@+id/fragment3_error_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/connecterror"
+            />
 
-    <com.killer.tabhost.BannerFlipper
-        android:id="@+id/banner_pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tv_flipper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingTop="5dp"
-        android:text="显示点击第几个图片"
-        android:textColor="#000000"
-        android:textSize="10sp" />
-
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/fragment3_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment3_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
